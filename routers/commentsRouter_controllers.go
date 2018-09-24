@@ -7,7 +7,7 @@ import (
 
 func init() {
 
-	beego.GlobalControllerRouter["web_go/controllers:TestController"] = append(beego.GlobalControllerRouter["web_go/controllers:TestController"],
+	beego.GlobalControllerRouter["my_blog/controllers:TestController"] = append(beego.GlobalControllerRouter["my_blog/controllers:TestController"],
 		beego.ControllerComments{
 			Method: "TestRequestMessage",
 			Router: `test`,

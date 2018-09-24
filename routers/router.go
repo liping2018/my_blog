@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"web_go/controllers"
+	"my_blog/controllers"
 
 	"github.com/astaxie/beego"
 )
@@ -18,6 +18,3 @@ func init() {
 	)
 	beego.AddNamespace(ns)
 }
-
-
-
