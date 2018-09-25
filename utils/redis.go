@@ -13,26 +13,19 @@ import (
 
 var con redis.Conn
 
-func initRedis() {
+func InitRedis() {
 	var err error
 	host := GetString("redis::host")
-	port := GetString("redis::port")
-	pwd := GetString("redis::password")
-	con, err = redis.Dial("tcp", host+":"+port)
+	con, err = redis.Dial("tcp", host)
 	if err != nil {
-		fmt.Println("初始化redis失败", err)
-		return
-	}
-	_, err = con.Do("AUTH", pwd)
-	if err != nil {
-		fmt.Println("验证redis失败")
+		fmt.Println(err)
 		return
 	}
 }
 
 //获取redis值
 func SetRedisValue(key, value, outtime string) {
-	initRedis()
+	InitRedis()
 	defer con.Close()
 	_, err := con.Do("SET", key, value, "EX", outtime)
 	if err != nil {
@@ -42,7 +35,7 @@ func SetRedisValue(key, value, outtime string) {
 
 //设置redis值
 func GetRedisValue(key string) string {
-	initRedis()
+	InitRedis()
 	defer con.Close()
 	value, err := redis.String(con.Do("GET", key))
 	if err != nil {
@@ -54,7 +47,7 @@ func GetRedisValue(key string) string {
 
 //移除redis值
 func RemoveRedisValue(key string) {
-	initRedis()
+	InitRedis()
 	defer con.Close()
 	_, err := con.Do("DEL", key)
 	if err != nil {
@@ -65,7 +58,7 @@ func RemoveRedisValue(key string) {
 //查询redis 值是否已经存在
 
 func IsExistRedisValue(key string) bool {
-	initRedis()
+	InitRedis()
 	defer con.Close()
 	is_key_exit, err := redis.Bool(con.Do("EXISTS", key))
 	if err != nil {
