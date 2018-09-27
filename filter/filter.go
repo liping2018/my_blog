@@ -14,7 +14,9 @@ import (
 	"github.com/astaxie/beego/context"
 )
 
-var urls = []string{}
+var urls = []string{
+	"/login",
+}
 
 func Ignoretoken(contexUri string) bool {
 	for _, uri := range urls {

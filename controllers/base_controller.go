@@ -8,6 +8,7 @@ import (
 
 type BaseController struct {
 	beego.Controller
+	IsLogin int //用户是否已登录
 }
 
 func init() {
